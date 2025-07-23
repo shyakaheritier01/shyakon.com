@@ -1,100 +1,199 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shyakon | Innovative Software Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #0d47a1;
+      --secondary: #34a853;
+      --accent: #fbbc05;
+      --dark: #202124;
+      --light: #f8f9fa;
+      --gray: #5f6368;
+    }
+    
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: var(--dark);
+      line-height: 1.6;
     }
 
     .navbar {
       display: flex;
       justify-content: space-between;
-      padding: 1rem 2rem;
-      background-color: #1d3557;
-      color: #fff;
+      padding: 1.5rem 5%;
+      background-color: white;
+      color: var(--dark);
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
     }
 
     .logo-img {
-      height: 40px;
-      margin-right: 10px;
+      height: 45px;
+      margin-right: 12px;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
       margin: 0;
       padding: 0;
     }
 
     nav a {
-      color: #fff;
+      color: var(--dark);
       text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .cta-button {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
     }
 
     .hero {
       position: relative;
-      padding: 4rem 2rem;
-      background: linear-gradient(to right, #1d3557, #457b9d);
-      color: #fff;
-      text-align: center;
+      padding: 6rem 5% 8rem;
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: white;
+      text-align: left;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: "";
-      background: url('shyakon-logo.png') no-repeat center center;
-      background-size: 300px;
-      opacity: 0.08;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .hero h1,
-    .hero p,
-    .hero .btn {
+    .hero-content {
+      flex: 1;
+      padding-right: 3rem;
+    }
+
+    .hero-image {
+      flex: 1;
       position: relative;
-      z-index: 1;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
 
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
     }
 
-    .hero .btn {
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
       margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
-      background: #2ec4b6;
-      color: white;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--dark);
       border: none;
       text-decoration: none;
-      font-weight: bold;
-      border-radius: 5px;
+      font-weight: 600;
+      border-radius: 30px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(251, 188, 5, 0.3);
+    }
+
+    .btn:hover {
+      background: #f9b700;
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(251, 188, 5, 0.4);
     }
 
     .section {
-      padding: 3rem 2rem;
+      padding: 6rem 5%;
       text-align: center;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
     }
 
     .services {
@@ -102,54 +201,398 @@
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
+      margin-top: 3rem;
     }
 
     .card {
       background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 250px;
+      padding: 2.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      width: 320px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: left;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .card p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-link {
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-link svg {
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+
+    .card-link:hover svg {
+      transform: translateX(5px);
     }
 
     .about {
-      background-color: #e0f7fa;
+      background-color: #f8f9fa;
+      text-align: left;
+    }
+
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+    }
+
+    .about-image {
+      flex: 1;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .about-content {
+      flex: 1;
+    }
+
+    .about-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    .results {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: white;
+      padding: 4rem 5%;
+    }
+
+    .results-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .results-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .case-study {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .case-study-image {
+      flex: 1;
+    }
+
+    .case-study-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .case-study-content {
+      flex: 1;
+    }
+
+    .case-study h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .case-study p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .metrics {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     .contact form {
       display: flex;
       flex-direction: column;
-      max-width: 400px;
-      margin: auto;
-      gap: 1rem;
+      max-width: 600px;
+      margin: 3rem auto 0;
+      gap: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: var(--dark);
     }
 
     input, textarea {
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
     }
 
     button {
-      padding: 0.8rem;
-      background: #1d3557;
+      padding: 1rem;
+      background: var(--primary);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
     }
 
     footer {
-      background: #1d3557;
+      background: var(--dark);
       color: white;
+      padding: 4rem 5% 2rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      text-align: left;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo-img {
+      height: 40px;
+      margin-right: 12px;
+    }
+
+    .footer-about p {
+      opacity: 0.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+    }
+
+    .footer-links h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: white;
+      opacity: 0.7;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .footer-contact svg {
+      margin-right: 10px;
+    }
+
+    .copyright {
       text-align: center;
-      padding: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.7;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-container, .about-container {
+        flex-direction: column;
+        gap: 3rem;
+      }
+      
+      .hero-content {
+        padding-right: 0;
+        text-align: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .case-study {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem 5%;
+      }
+      
+      nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .metrics {
+        flex-direction: column;
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <header class="navbar">
     <div class="logo">
-      <img src="shyakon-logo.png" alt="Shyakon Logo" class="logo-img" />
+      <img src="https://via.placeholder.com/45x45/1a73e8/ffffff?text=SK" alt="Shyakon Logo" class="logo-img" />
       Shyakon
     </div>
     <nav>
@@ -157,69 +600,197 @@
         <li><a href="#">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#results">Results</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <a href="#contact" class="cta-button">Get Started</a>
   </header>
 
   <section class="hero">
-    <h1>Innovative Software. Infinite Possibilities.</h1>
-    <p>Shyakon empowers businesses with intelligent, scalable, and modern software solutions.</p>
-    <a href="#contact" class="btn">Get Started</a>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Transform Your Business With Cutting-Edge Software Solutions</h1>
+        <p>Shyakon delivers custom software that drives growth, efficiency, and competitive advantage for businesses of all sizes. Our expert team builds solutions tailored to your unique needs.</p>
+        <a href="#contact" class="btn">Schedule Free Consultation</a>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Software development team">
+      </div>
+    </div>
   </section>
 
   <section id="services" class="section">
-    <h2>Our Services</h2>
+    <h2 class="section-title">Our Expert Services</h2>
+    <p class="section-subtitle">We provide comprehensive software solutions that help businesses streamline operations, engage customers, and accelerate growth.</p>
+    
     <div class="services">
       <div class="card">
-        <h3>Web Applications</h3>
-        <p>Custom websites and powerful platforms tailored for your needs.</p>
+        <div class="card-icon">📱</div>
+        <h3>Custom Web Applications</h3>
+        <p>Powerful, scalable web platforms designed to solve your specific business challenges with intuitive interfaces and robust functionality.</p>
+        <a href="#" class="card-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
+      
       <div class="card">
-        <h3>Mobile Apps</h3>
-        <p>Seamless Android and iOS applications built with innovation.</p>
+        <div class="card-icon">📲</div>
+        <h3>Mobile App Development</h3>
+        <p>Native and cross-platform mobile applications that deliver seamless user experiences on iOS and Android devices.</p>
+        <a href="#" class="card-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
+      
       <div class="card">
-        <h3>Software Solutions</h3>
-        <p>Automation tools, dashboards, and enterprise systems to boost your growth.</p>
+        <div class="card-icon">📊</div>
+        <h3>Enterprise Software</h3>
+        <p>Comprehensive business systems that automate processes, integrate departments, and provide actionable insights through analytics.</p>
+        <a href="#" class="card-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </section>
 
   <section id="about" class="section about">
-    <h2>About Shyakon</h2>
-    <p>
-      Shyakon is a forward-thinking software company built on innovation, intelligence, and integrity. Founded by visionary developer <strong>Heritier Shyaka</strong>, we specialize in delivering top-notch tech solutions — from AI integrations to powerful system dashboards.
-    </p>
-    <p>
-      Our mission is simple: help businesses grow and thrive by transforming complex ideas into functional, beautiful digital products. At Shyakon, we don’t just build software — we craft experiences that empower your brand.
-    </p>
-    <p>
-      With a reputation for reliability, creativity, and technical mastery, we’re here to code your dreams into reality. Let’s build the future together.
-    </p>
+    <div class="about-container">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Shyakon team">
+      </div>
+      <div class="about-content">
+        <h2>About Shyakon</h2>
+        <p>Founded by visionary developer <strong>Heritier Shyaka</strong>, Shyakon is a software development company that combines technical excellence with business acumen to deliver solutions that drive real results.</p>
+        <p>Our team of experienced developers, designers, and strategists work closely with clients to understand their unique challenges and craft software that exceeds expectations.</p>
+        <p>We pride ourselves on our collaborative approach, transparent communication, and commitment to delivering projects on time and within budget.</p>
+        
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results" class="results">
+    <div class="results-container">
+      <h2 class="results-title">Client Success Stories</h2>
+      
+      <div class="case-study">
+        <div class="case-study-image">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Financial dashboard">
+        </div>
+        <div class="case-study-content">
+          <h3>FinTech Dashboard for Wealth Management Firm</h3>
+          <p>We developed a custom financial dashboard that consolidated data from multiple sources into a single, intuitive interface, providing real-time insights and analytics.</p>
+          
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-value">3.5x</div>
+              <div class="metric-label">Faster decision making</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">40%</div>
+              <div class="metric-label">Reduced manual work</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">92%</div>
+              <div class="metric-label">Adoption rate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="contact" class="section contact">
-    <h2>Contact Us</h2>
+    <h2 class="section-title">Ready to Transform Your Business?</h2>
+    <p class="section-subtitle">Get in touch with our team to discuss your project and learn how we can help you achieve your goals.</p>
+    
     <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" required></textarea>
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="John Smith" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="john@company.com" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="message">How Can We Help?</label>
+        <textarea id="message" rows="5" placeholder="Tell us about your project..." required></textarea>
+      </div>
+      
       <button type="submit">Send Message</button>
     </form>
   </section>
 
   <footer>
-    <p>&copy; 2025 Shyakon. All rights reserved.</p>
+    <div class="footer-container">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="https://via.placeholder.com/40x40/1a73e8/ffffff?text=SK" alt="Shyakon Logo" class="footer-logo-img" />
+          Shyakon
+        </div>
+        <p>Innovative software solutions that drive business growth and operational efficiency.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">📱</a>
+          <a href="#" class="social-link">💻</a>
+          <a href="#" class="social-link">📧</a>
+          <a href="#" class="social-link">🔗</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">Enterprise Software</a></li>
+          <li><a href="#">UI/UX Design</a></li>
+          <li><a href="#">Cloud Solutions</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>📍 Kigali, Rwanda</p>
+        <p>📞 +250 780264668</p>
+        <p>✉️ shyakaheritier01@gmail.com</p>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 Shyakon. All rights reserved.</p>
+    </div>
   </footer>
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WL6CGVDEHL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-WL6CGVDEHL');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WL6CGVDEHL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WL6CGVDEHL');
+  </script>
 </body>
 </html>
