@@ -1,894 +1,2036 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shyakon · Enterprise Software</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #050816;
-      color: #F8FAFC;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-    ::-webkit-scrollbar { width: 6px; background: #050816; }
-    ::-webkit-scrollbar-thumb { background: #00E5FF; border-radius: 12px; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shyakon — Intelligent Software Engineering</title>
+<meta name="description" content="Shyakon engineers custom software, AI solutions and digital products that solve real business problems. Founded by Shyaka Heritier, Rwanda." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --bg: #0E0F0C;
+    --bg-2: #141612;
+    --bg-3: #1B1E18;
+    --ivory: #F4F1E8;
+    --ivory-2: #E8E3D5;
+    --muted: #9A978A;
+    --muted-2: #6E6C61;
+    --lime: #C8F751;
+    --lime-dim: #A8D63E;
+    --cobalt: #3D5AFE;
+    --line: rgba(244,241,232,0.08);
+    --line-strong: rgba(244,241,232,0.14);
+    --radius: 14px;
+    --radius-lg: 22px;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --container: 1240px;
+  }
 
-    .bg-glow {
-      position: fixed;
-      width: 70vw;
-      height: 70vw;
-      border-radius: 50%;
-      filter: blur(140px);
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .bg-glow-1 { top: -20%; left: -10%; background: #00E5FF; }
-    .bg-glow-2 { bottom: -20%; right: -10%; background: #7C3AED; }
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
 
-    /* NAV */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: rgba(5,8,22,0.4);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .navbar.scrolled {
-      background: rgba(5,8,22,0.75);
-      backdrop-filter: blur(24px) saturate(2);
-      border-bottom: 1px solid rgba(0,229,255,0.08);
-      box-shadow: 0 4px 60px rgba(0,229,255,0.04);
-    }
-    .nav-inner {
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ivory);
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--lime); color: var(--bg); }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 10px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--lime);
+    opacity: 0.6;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
+    transition: all 0.35s var(--ease);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--lime); color: var(--bg); }
+  .btn-primary:hover { background: var(--ivory); transform: translateY(-2px); }
+  .btn-ghost { border-color: var(--line-strong); color: var(--ivory); background: transparent; }
+  .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
+  .btn svg { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
+  .btn:hover svg { transform: translateX(3px); }
+
+  /* ---------- NAVBAR ---------- */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,15,12,0.72);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .navbar.scrolled { background: rgba(14,15,12,0.92); border-color: var(--line-strong); }
+  .nav-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.03em;
+    color: var(--ivory);
+    flex-shrink: 0;
+  }
+  .logo-img { height: 30px; width: auto; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links a {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    border-radius: 8px;
+    transition: color 0.25s var(--ease);
+    position: relative;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0.9rem; right: 0.9rem; bottom: 0.25rem;
+    height: 1px; background: var(--lime);
+  }
+  .nav-cta { background: var(--lime); color: var(--bg) !important; font-weight: 600; padding: 0.55rem 1.1rem !important; }
+  .nav-cta:hover { background: var(--ivory); }
+  .nav-cta.active::after { display: none !important; }
+
+  .menu-toggle {
+    display: none;
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 18px; height: 1.5px;
+    background: var(--ivory);
+    transition: all 0.3s var(--ease);
+    transform-origin: center;
+  }
+  .menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: 6rem 0 5rem;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,247,81,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -300px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(61,90,254,0.07), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 14ch;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--lime);
+    font-family: var(--font-serif);
+  }
+  .hero p {
+    font-size: 1.08rem;
+    color: var(--muted);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+  /* ---------- HERO VISUAL ---------- */
+  .hero-visual {
+    position: relative;
+    perspective: 1200px;
+  }
+  .window {
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 40px 100px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(200,247,81,0.03);
+    transform: rotateY(-4deg) rotateX(2deg);
+    transition: transform 0.6s var(--ease);
+  }
+  .window:hover { transform: rotateY(0) rotateX(0); }
+  .window-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-3);
+  }
+  .window-bar span {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--muted-2);
+  }
+  .window-bar span:nth-child(1) { background: #EF4444; }
+  .window-bar span:nth-child(2) { background: #F59E0B; }
+  .window-bar span:nth-child(3) { background: var(--lime); }
+  .window-bar .title {
+    margin-left: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+  .window-body { padding: 1.4rem; }
+  .dash-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .dash-head h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.15rem;
+  }
+  .dash-head .tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--lime);
+    padding: 0.15rem 0.55rem;
+    border: 1px solid rgba(200,247,81,0.3);
+    border-radius: 99px;
+  }
+  .dash-rows { display: grid; gap: 0.5rem; }
+  .dash-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.7rem 0.85rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 0.78rem;
+  }
+  .dash-row .name { color: var(--ivory); font-weight: 500; }
+  .dash-row .meta { color: var(--muted); font-family: var(--font-mono); font-size: 0.68rem; }
+  .dash-row .badge {
+    font-size: 0.62rem;
+    font-family: var(--font-mono);
+    padding: 0.15rem 0.5rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge-lime { background: rgba(200,247,81,0.12); color: var(--lime); }
+  .badge-cobalt { background: rgba(61,90,254,0.16); color: #8A9BFF; }
+  .badge-neutral { background: rgba(244,241,232,0.06); color: var(--muted); }
+  .chart-mini {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 54px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .chart-mini i {
+    flex: 1;
+    background: linear-gradient(180deg, var(--lime), rgba(200,247,81,0.15));
+    border-radius: 3px 3px 0 0;
+    opacity: 0.85;
+  }
+
+  /* floating code chip */
+  .code-chip {
+    position: absolute;
+    bottom: -22px; left: -22px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.5;
+    color: var(--muted);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
+    max-width: 220px;
+  }
+  .code-chip .k { color: var(--lime); }
+  .code-chip .s { color: #8A9BFF; }
+
+  /* ---------- TRUST BAR ---------- */
+  .trust {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 1.6rem 0;
+    background: var(--bg-2);
+  }
+  .trust-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .trust-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+  .trust-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    align-items: center;
+  }
+  .trust-items span {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: color 0.25s;
+  }
+  .trust-items span:hover { color: var(--lime); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section { position: relative; }
+  .section { padding: 6rem 0; }
+  .section-head { margin-bottom: 3.5rem; max-width: 720px; }
+  .section-head h2 {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    margin: 0.8rem 0 1rem;
+  }
+  .section-head p { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .service-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem 1.6rem;
+    position: relative;
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), background 0.4s var(--ease);
+    overflow: hidden;
+  }
+  .service-card:hover {
+    border-color: rgba(200,247,81,0.3);
+    transform: translateY(-4px);
+    background: var(--bg-3);
+  }
+  .service-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(200,247,81,0.08);
+    border: 1px solid rgba(200,247,81,0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.4rem;
+    transition: background 0.3s var(--ease);
+  }
+  .service-card:hover .service-icon { background: rgba(200,247,81,0.15); }
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--lime); fill: none; stroke-width: 1.5; }
+  .service-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+  .service-num {
+    position: absolute;
+    top: 1.4rem; right: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted-2);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-section { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .project:first-of-type { border-top: none; padding-top: 0; }
+  .project.reverse .project-visual { order: 2; }
+  .project-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+    border: 1px solid var(--line-strong);
+    color: var(--muted);
+  }
+  .pill.status-live { color: var(--lime); border-color: rgba(200,247,81,0.3); background: rgba(200,247,81,0.06); }
+  .pill.status-academic { color: #8A9BFF; border-color: rgba(61,90,254,0.3); background: rgba(61,90,254,0.08); }
+  .pill.status-client { color: var(--ivory-2); border-color: var(--line-strong); }
+  .project h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+  }
+  .project p { color: var(--muted); font-size: 0.98rem; margin-bottom: 1rem; }
+  .project-features {
+    list-style: none;
+    margin: 1.2rem 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .project-features li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .project-features li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.55rem;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+  }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+  .tech-tags span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lime);
+    border-bottom: 1px solid rgba(200,247,81,0.3);
+    padding-bottom: 2px;
+    transition: gap 0.3s var(--ease);
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  /* project visual mockups */
+  .project-visual { position: relative; }
+  .mock {
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+  .mock-bar {
+    display: flex; gap: 0.35rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .mock-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted-2); }
+  .mock-bar i:nth-child(1) { background: #EF4444; }
+  .mock-bar i:nth-child(2) { background: #F59E0B; }
+  .mock-bar i:nth-child(3) { background: var(--lime); }
+  .mock-body { padding: 1.2rem; }
+
+  /* phone mock */
+  .phone-wrap { display: flex; justify-content: center; padding: 1rem 0; }
+  .phone {
+    width: 230px;
+    background: var(--bg);
+    border: 8px solid var(--bg-3);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8);
+  }
+  .phone-notch {
+    height: 22px;
+    background: var(--bg-3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-notch::after {
+    content: '';
+    width: 60px; height: 5px;
+    background: var(--bg);
+    border-radius: 3px;
+  }
+  .phone-screen { padding: 1rem; background: var(--bg); }
+  .phone-screen h5 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .menu-item {
+    display: flex; gap: 0.6rem;
+    padding: 0.6rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+  }
+  .menu-thumb {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(200,247,81,0.2), rgba(61,90,254,0.2));
+    flex-shrink: 0;
+  }
+  .menu-info h6 { font-size: 0.75rem; font-weight: 600; margin-bottom: 2px; }
+  .menu-info .price { font-family: var(--font-mono); font-size: 0.68rem; color: var(--lime); }
+  .qr-badge {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--lime);
+    color: var(--bg);
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .qr-badge .qr {
+    width: 34px; height: 34px;
+    background: repeating-conic-gradient(var(--bg) 0 25%, transparent 0 50%) 50% / 8px 8px;
+    border-radius: 4px;
+    margin: 0 auto 3px;
+  }
+
+  /* triage dashboard */
+  .triage-rows { display: grid; gap: 0.5rem; }
+  .triage-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto auto;
+    gap: 0.7rem;
+    align-items: center;
+    padding: 0.6rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 0.72rem;
+  }
+  .triage-row .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8A9BFF, #3D5AFE);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--ivory);
+  }
+  .triage-row .info .nm { font-weight: 600; font-size: 0.75rem; }
+  .triage-row .info .cond { color: var(--muted); font-size: 0.65rem; }
+  .priority {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .priority.p1 { background: rgba(239,68,68,0.2); color: #F87171; }
+  .priority.p2 { background: rgba(245,158,11,0.18); color: #FBBF24; }
+  .priority.p3 { background: rgba(200,247,81,0.15); color: var(--lime); }
+  .risk-bar { width: 44px; height: 4px; background: var(--bg-3); border-radius: 3px; overflow: hidden; }
+  .risk-bar i { display: block; height: 100%; border-radius: 3px; }
+
+  /* website preview mock */
+  .site-mock .hero-skel {
+    height: 80px;
+    background: linear-gradient(135deg, rgba(61,90,254,0.18), rgba(200,247,81,0.12));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--ivory-2);
+    margin-bottom: 0.8rem;
+  }
+  .site-mock .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+  .site-mock .grid-3 div {
+    height: 46px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .site-mock .grid-3 div:first-child { background: linear-gradient(135deg, rgba(61,90,254,0.15), var(--bg-2)); }
+
+  /* ---------- PHILOSOPHY ---------- */
+  .philosophy { background: var(--bg); }
+  .phil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .phil-quote {
+    position: sticky;
+    top: 100px;
+  }
+  .phil-quote blockquote {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+  }
+  .phil-quote blockquote em { color: var(--lime); font-style: italic; }
+  .phil-steps { display: grid; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+    transition: background 0.3s var(--ease);
+  }
+  .step:last-child { border-bottom: 1px solid var(--line); }
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--lime);
+    padding-top: 0.3rem;
+  }
+  .step h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .step p { color: var(--muted); font-size: 0.92rem; }
+
+  /* ---------- ABOUT / FOUNDER ---------- */
+  .founder {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .founder-photo-wrap { position: relative; }
+  .founder-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--radius-lg) + 1px);
+    background: linear-gradient(135deg, var(--lime), transparent 50%, var(--cobalt));
+    opacity: 0.4;
+    z-index: 0;
+  }
+  .founder-photo {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-3);
+    aspect-ratio: 4/5;
+  }
+  .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .founder-photo-caption {
+    margin-top: 1.4rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .founder-photo-caption strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
+  }
+  .founder-photo-caption span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--lime);
+    letter-spacing: 0.04em;
+  }
+  .founder-copy h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.4rem; }
+  .founder-copy p { color: var(--muted); font-size: 1rem; margin-bottom: 1rem; }
+  .founder-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .founder-tags span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 99px;
+    color: var(--muted);
+  }
+
+  /* ---------- STACK ---------- */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .stack-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: border-color 0.3s var(--ease);
+  }
+  .stack-card:hover { border-color: rgba(200,247,81,0.2); }
+  .stack-card h5 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 0.8rem;
+  }
+  .stack-card ul { list-style: none; display: grid; gap: 0.35rem; }
+  .stack-card li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .stack-card li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--muted-2);
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { max-width: 820px; margin: 0 auto; }
+  .faq {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq:first-child { border-top: 1px solid var(--line); }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ivory);
+    transition: color 0.25s var(--ease);
+  }
+  .faq-q:hover { color: var(--lime); }
+  .faq-q .ic {
+    width: 24px; height: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s var(--ease);
+    position: relative;
+  }
+  .faq-q .ic::before,
+  .faq-q .ic::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+    transition: transform 0.3s var(--ease);
+  }
+  .faq-q .ic::before { width: 10px; height: 1.5px; }
+  .faq-q .ic::after { width: 1.5px; height: 10px; }
+  .faq.open .faq-q .ic { background: var(--lime); color: var(--bg); border-color: var(--lime); }
+  .faq.open .faq-q .ic::after { transform: rotate(90deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease), padding 0.4s var(--ease);
+  }
+  .faq.open .faq-a { max-height: 300px; padding-bottom: 1.4rem; }
+  .faq-a p { color: var(--muted); font-size: 0.92rem; max-width: 70ch; }
+
+  /* ---------- CONTACT ---------- */
+  .contact {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info h2 { font-size: clamp(2rem, 3.4vw, 2.7rem); margin-bottom: 1rem; }
+  .contact-info > p { color: var(--muted); margin-bottom: 2rem; max-width: 44ch; }
+  .contact-methods { display: grid; gap: 0.6rem; }
+  .method {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: border-color 0.3s var(--ease);
+  }
+  .method:hover { border-color: rgba(200,247,81,0.3); }
+  .method-ic {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: rgba(200,247,81,0.08);
+    border: 1px solid rgba(200,247,81,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .method-ic svg { width: 16px; height: 16px; stroke: var(--lime); fill: none; stroke-width: 1.6; }
+  .method-txt strong { display: block; font-size: 0.85rem; font-weight: 600; }
+  .method-txt span { font-size: 0.8rem; color: var(--muted); }
+
+  .contact-form {
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.8rem; }
+  .form-group label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    color: var(--ivory);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--lime);
+    background: var(--bg-3);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: var(--bg-2); color: var(--ivory); }
+  .form-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .form-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted-2);
+    margin-top: 0.8rem;
+    font-family: var(--font-mono);
+  }
+
+  /* ---------- CTA BANNER ---------- */
+  .cta {
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 400px;
+    background: radial-gradient(ellipse, rgba(200,247,81,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; z-index: 2; }
+  .cta h2 {
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    max-width: 18ch;
+    margin: 0 auto 1.2rem;
+  }
+  .cta h2 em { color: var(--lime); font-style: italic; }
+  .cta p { color: var(--muted); max-width: 50ch; margin: 0 auto 2.2rem; font-size: 1.02rem; }
+  .cta-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 3.5rem 0 1.5rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-top: 1rem;
+    max-width: 30ch;
+  }
+  .footer h5 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin-bottom: 1rem;
+  }
+  .footer ul { list-style: none; display: grid; gap: 0.55rem; }
+  .footer ul a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    transition: color 0.25s var(--ease);
+  }
+  .footer ul a:hover { color: var(--lime); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--muted-2);
+  }
+  .footer-bottom .mono { font-family: var(--font-mono); font-size: 0.72rem; }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--lime);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 90;
+    box-shadow: 0 12px 40px -8px rgba(200,247,81,0.5);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 16px 50px -8px rgba(200,247,81,0.7); }
+  .wa-float svg { width: 26px; height: 26px; fill: var(--bg); }
+
+  /* ---------- TOAST ---------- */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translate(-50%, 150%);
+    background: var(--bg-3);
+    border: 1px solid var(--line-strong);
+    border-left: 3px solid var(--lime);
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    max-width: calc(100vw - 48px);
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6);
+    transition: transform 0.5s var(--ease);
+  }
+  .toast.show { transform: translate(-50%, 0); }
+  .toast.error { border-left-color: #EF4444; }
+  .toast .msg { font-size: 0.88rem; color: var(--ivory); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { max-width: 520px; margin: 0 auto; width: 100%; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    .project { grid-template-columns: 1fr; gap: 2.5rem; }
+    .project.reverse .project-visual { order: 0; }
+    .phil-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .phil-quote { position: static; }
+    .founder-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder-photo-wrap { max-width: 380px; margin: 0 auto; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 768px) {
+    .section { padding: 4rem 0; }
+    .hero { padding: 4rem 0 3rem; }
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-links.mobile-open {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 2rem;
-      max-width: 1280px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: -0.02em;
-      color: #F8FAFC;
-      padding: 4px 8px;
-      border-radius: 12px;
-      transition: all 0.4s;
-    }
-    .logo-img { height: 36px; margin-right: 10px; filter: drop-shadow(0 0 12px rgba(0,229,255,0.15)); transition: filter 0.4s; }
-    .logo:hover .logo-img { filter: drop-shadow(0 0 24px rgba(0,229,255,0.3)); }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      padding: 0.3rem;
-      background: rgba(255,255,255,0.02);
-      border-radius: 60px;
-      border: 1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(4px);
-    }
-    nav a {
-      text-decoration: none;
-      color: #94A3B8;
-      font-weight: 500;
-      font-size: 0.85rem;
-      padding: 0.6rem 1.4rem;
-      border-radius: 40px;
-      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    nav a .nav-icon { opacity: 0.4; transition: all 0.35s; font-size: 0.9rem; }
-    nav a:hover .nav-icon { opacity: 1; transform: scale(1.1); }
-    nav a:hover {
-      color: #F8FAFC;
-      background: rgba(0,229,255,0.04);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,229,255,0.06);
-    }
-    nav a::after {
-      content: '';
       position: absolute;
-      bottom: 4px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #00E5FF, #7C3AED);
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-      transform: translateX(-50%);
-      border-radius: 4px;
-      box-shadow: 0 0 20px rgba(0,229,255,0.3);
-    }
-    nav a:hover::after { width: 60%; }
-    nav a.active { color: #F8FAFC; background: rgba(0,229,255,0.06); }
-    nav a.active::after { width: 60%; }
-    .nav-cta {
-      background: linear-gradient(135deg, #00E5FF, #0099CC) !important;
-      color: #050816 !important;
-      padding: 0.6rem 2rem !important;
-      border-radius: 40px !important;
-      font-weight: 700 !important;
-      box-shadow: 0 0 40px rgba(0,229,255,0.15) !important;
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
-    }
-    .nav-cta::after { display: none !important; }
-    .nav-cta:hover {
-      background: linear-gradient(135deg, #7C3AED, #5B21B6) !important;
-      color: white !important;
-      box-shadow: 0 0 60px rgba(124,58,237,0.3) !important;
-      transform: translateY(-3px) scale(1.02) !important;
-    }
-
-    /* FLOATING WHATSAPP */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 9999;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 40px rgba(37,211,102,0.35);
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-      text-decoration: none;
-      color: white;
-      font-size: 28px;
-      font-weight: 700;
-      animation: pulse-wa 3s ease-in-out infinite;
-    }
-    @keyframes pulse-wa {
-      0%, 100% { box-shadow: 0 8px 40px rgba(37,211,102,0.35); }
-      50% { box-shadow: 0 8px 60px rgba(37,211,102,0.6); }
-    }
-    .whatsapp-float:hover { transform: scale(1.12) rotate(-4deg); box-shadow: 0 12px 60px rgba(37,211,102,0.5); }
-
-    /* HERO */
-    .hero { padding: 4rem 0 6rem; position: relative; z-index: 2; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(0,229,255,0.06); border: 1px solid rgba(0,229,255,0.15);
-      color: #00E5FF; font-weight: 600; font-size: 0.7rem;
-      padding: 0.3rem 1.2rem; border-radius: 60px; letter-spacing: 0.4px;
-      text-transform: uppercase; margin-bottom: 1.8rem;
-    }
-    .hero h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #F8FAFC; margin-bottom: 1.2rem; }
-    .hero h1 span { background: linear-gradient(135deg, #00E5FF, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1.15rem; color: #94A3B8; max-width: 540px; margin-bottom: 2.2rem; }
-    .hero-industries { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; margin-top: 1rem; }
-    .hero-industries span { background: rgba(255,255,255,0.04); padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.7rem; color: #94A3B8; border: 1px solid rgba(255,255,255,0.04); }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-    .btn-primary {
-      background: #00E5FF; color: #050816; padding: 0.85rem 2.4rem; border-radius: 60px;
-      font-weight: 700; border: none; text-decoration: none; transition: 0.25s;
-      display: inline-flex; align-items: center; box-shadow: 0 0 30px rgba(0,229,255,0.2); cursor: pointer;
-    }
-    .btn-primary:hover { background: #7C3AED; color: white; box-shadow: 0 0 50px rgba(124,58,237,0.3); transform: translateY(-3px); }
-    .btn-outline {
-      background: transparent; color: #F8FAFC; border: 1px solid rgba(255,255,255,0.15);
-      padding: 0.85rem 2.4rem; border-radius: 60px; font-weight: 600; text-decoration: none; transition: 0.25s;
-    }
-    .btn-outline:hover { border-color: #00E5FF; background: rgba(0,229,255,0.04); }
-
-    .dash-mock {
-      background: #0B1120; border-radius: 28px; padding: 1.8rem;
-      border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      position: relative; backdrop-filter: blur(4px);
-    }
-    .dash-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem; }
-    .dash-dot { display: flex; gap: 6px; }
-    .dash-dot span { width: 10px; height: 10px; border-radius: 50%; background: #1E293B; }
-    .dash-dot span:first-child { background: #EF4444; }
-    .dash-dot span:nth-child(2) { background: #F59E0B; }
-    .dash-dot span:last-child { background: #22C55E; }
-    .dash-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.4rem 0; }
-    .dash-metric { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 1rem; border: 1px solid rgba(255,255,255,0.03); }
-    .dash-metric .num { font-size: 1.6rem; font-weight: 700; color: #F8FAFC; }
-    .dash-metric .lbl { font-size: 0.7rem; color: #64748B; }
-    .dash-chart { display: flex; align-items: flex-end; gap: 0.4rem; height: 70px; margin: 0.8rem 0; }
-    .bar { flex: 1; background: linear-gradient(180deg, #00E5FF, #7C3AED); border-radius: 4px 4px 0 0; height: calc(20% + 30% * var(--h,0.5)); min-height: 6px; opacity: 0.7; }
-    .bar:nth-child(1){--h:0.8}
-    .bar:nth-child(2){--h:0.5}
-    .bar:nth-child(3){--h:0.9}
-    .bar:nth-child(4){--h:0.4}
-    .bar:nth-child(5){--h:0.7}
-    .bar:nth-child(6){--h:0.3}
-    .dash-status { display: flex; justify-content: space-between; font-size: 0.7rem; color: #64748B; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 1rem; }
-    .dash-status .online { color: #22C55E; display: flex; align-items: center; gap: 4px; }
-
-    .section { padding: 5rem 0; position: relative; z-index: 2; }
-    .section-title { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; color: #F8FAFC; margin-bottom: 0.75rem; }
-    .section-sub { color: #94A3B8; max-width: 680px; margin-bottom: 3rem; font-size: 1.05rem; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2rem; }
-    .card {
-      background: #111827; border-radius: 24px; padding: 2rem 1.8rem;
-      border: 1px solid rgba(255,255,255,0.04); transition: 0.3s;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2); position: relative; overflow: hidden;
-    }
-    .card::before { content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1px; background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(124,58,237,0.1)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
-    .card:hover { transform: translateY(-8px); border-color: rgba(0,229,255,0.15); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(0,229,255,0.02); }
-    .card svg { width: 32px; height: 32px; stroke: #00E5FF; margin-bottom: 1rem; }
-    .card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.4rem; color: #F8FAFC; }
-    .card p { font-size: 0.9rem; color: #94A3B8; }
-    .card .tech-tags { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .card .tech-tags span { background: rgba(255,255,255,0.04); padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.65rem; font-weight: 500; color: #94A3B8; border: 1px solid rgba(255,255,255,0.04); }
-
-    .tech-strip { background: #0B1120; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); padding: 2.2rem 0; }
-    .tech-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.4rem 3.4rem; align-items: center; }
-    .tech-item { font-weight: 500; color: #94A3B8; font-size: 0.9rem; letter-spacing: -0.01em; transition: 0.2s; }
-    .tech-item:hover { color: #F8FAFC; }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 2rem; margin: 2rem 0; }
-    .stat-item { text-align: center; background: #111827; padding: 1.8rem 1rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.04); }
-    .stat-number { font-size: 2.8rem; font-weight: 700; color: #00E5FF; }
-
-    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2rem; }
-    .testimonial-card { background: #111827; border-radius: 24px; padding: 2rem; border: 1px solid rgba(255,255,255,0.04); }
-    .stars { color: #F59E0B; letter-spacing: 2px; margin-bottom: 0.75rem; }
-
-    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.04); padding: 1.2rem 0; cursor: pointer; }
-    .faq-question { display: flex; justify-content: space-between; font-weight: 600; color: #F8FAFC; }
-    .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; color: #94A3B8; }
-    .faq-item.active .faq-answer { max-height: 200px; padding-top: 0.8rem; }
-
-    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
-    .contact-info .quick-card {
-      background: #111827; border-radius: 16px; padding: 1.2rem 1.5rem; margin: 0.6rem 0;
-      border: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 1rem;
-    }
-    .contact-info .quick-card strong { color: #F8FAFC; }
-    .contact-form input, .contact-form textarea, .contact-form select {
-      width: 100%; padding: 0.9rem 1.2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06);
-      background: #0B1120; color: #F8FAFC; font-family: inherit; transition: 0.2s; margin-bottom: 0.8rem;
-    }
-    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: none; border-color: #00E5FF; box-shadow: 0 0 0 3px rgba(0,229,255,0.08); }
-    .contact-form select option { background: #0B1120; }
-
-    .notification {
-      position: fixed; top: 100px; right: 30px; padding: 1.5rem 2rem; border-radius: 20px;
-      background: #111827; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      z-index: 9999; max-width: 400px; transform: translateX(120%);
-      transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1); backdrop-filter: blur(12px);
-    }
-    .notification.show { transform: translateX(0); }
-    .notification.success { border-left: 4px solid #22C55E; }
-    .notification.error { border-left: 4px solid #EF4444; }
-    .notification h4 { color: #F8FAFC; margin-bottom: 0.3rem; }
-    .notification p { color: #94A3B8; font-size: 0.9rem; }
-
-    .footer { background: #0B1120; border-top: 1px solid rgba(255,255,255,0.04); padding: 4rem 0 2rem; margin-top: 2rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
-    .footer a { color: #94A3B8; text-decoration: none; transition: 0.2s; display: block; margin: 0.4rem 0; }
-    .footer a:hover { color: #F8FAFC; }
-    .footer .logo { color: #F8FAFC; }
-    .footer .logo-img { height: 36px; margin-right: 10px; }
-    .copyright { border-top: 1px solid rgba(255,255,255,0.04); padding-top: 2rem; margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #64748B; }
-
-    .project-card {
-      background: #111827; border-radius: 24px; padding: 2rem;
-      border: 1px solid rgba(255,255,255,0.04); transition: 0.3s; position: relative; overflow: hidden;
-    }
-    .project-card:hover { transform: translateY(-8px); border-color: rgba(0,229,255,0.15); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-    .project-status {
-      display: inline-block; padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.65rem; font-weight: 600;
-      background: rgba(34,197,94,0.15); color: #22C55E; border: 1px solid rgba(34,197,94,0.2); margin-bottom: 1rem;
-    }
-    .project-status.operational { background: rgba(34,197,94,0.15); color: #22C55E; border-color: rgba(34,197,94,0.2); }
-    .project-status.deployed { background: rgba(0,229,255,0.1); color: #00E5FF; border-color: rgba(0,229,255,0.15); }
-    .project-metrics { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.04); }
-    .project-metrics span { font-size: 0.8rem; color: #94A3B8; }
-    .project-metrics strong { color: #F8FAFC; }
-
-    .cta-section { background: #0B1120; padding: 5rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .cta-section h2 { font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; }
-    .cta-section p { color: #94A3B8; max-width: 600px; margin: 0 auto 2rem; }
-
-    /* ===== FOUNDER SECTION ===== */
-    .founder-section {
-      background: #0B1120;
-      padding: 5rem 0;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .founder-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .founder-image-wrapper {
-      position: relative;
-      display: flex;
+      top: 100%; left: 0; right: 0;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
+      padding: 1rem;
+      gap: 0.3rem;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--line-strong);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
     }
-    .founder-image-frame {
-      position: relative;
-      border-radius: 24px;
-      padding: 6px;
-      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));
-      box-shadow: 0 0 60px rgba(0,229,255,0.04), 0 20px 60px rgba(0,0,0,0.5);
-      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-      width: 100%;
-      max-width: 480px;
-    }
-    .founder-image-frame:hover {
-      box-shadow: 0 0 80px rgba(0,229,255,0.08), 0 30px 80px rgba(0,0,0,0.6);
-      transform: scale(1.01);
-    }
-    .founder-image-frame::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 26px;
-      padding: 2px;
-      background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(124,58,237,0.2));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0.5;
-      transition: opacity 0.5s;
-    }
-    .founder-image-frame:hover::before { opacity: 1; }
-    .founder-image-frame img {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      display: block;
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-      filter: brightness(1.02) contrast(1.02);
-    }
-    .founder-image-frame:hover img {
-      transform: scale(1.03);
-    }
-    /* subtle ambient glow behind image */
-    .founder-image-frame::after {
-      content: '';
-      position: absolute;
-      top: 20%;
-      right: -10%;
-      width: 40%;
-      height: 60%;
-      background: radial-gradient(ellipse, rgba(0,229,255,0.04), transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(40px);
-    }
-    .founder-info {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-    .founder-info h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #F8FAFC;
-      letter-spacing: -0.02em;
-    }
-    .founder-info .title {
-      color: #00E5FF;
-      font-weight: 500;
-      font-size: 1rem;
-      margin-top: 0.2rem;
-    }
-    .founder-info .subtitle {
-      color: #94A3B8;
-      font-size: 0.85rem;
-    }
-    .founder-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .founder-content .bio {
-      color: #94A3B8;
-      font-size: 1.05rem;
-      line-height: 1.8;
-    }
-    .founder-quote {
-      background: rgba(255,255,255,0.02);
-      border-left: 3px solid #00E5FF;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      position: relative;
-      margin-top: 0.5rem;
-    }
-    .founder-quote::before {
-      content: '"';
-      font-size: 3rem;
-      color: #00E5FF;
-      opacity: 0.2;
-      position: absolute;
-      top: -0.5rem;
-      left: 1rem;
-      font-family: Georgia, serif;
-    }
-    .founder-quote p {
-      color: #F8FAFC;
-      font-size: 1.1rem;
-      font-style: italic;
-      padding-left: 1.5rem;
-    }
+    .nav-links.mobile-open a { padding: 0.7rem 1rem; }
+    .nav-links.mobile-open .nav-cta { text-align: center; }
+    .nav-inner { position: relative; }
+    .services-grid { grid-template-columns: 1fr; }
+    .stack-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .trust-inner { justify-content: center; text-align: center; }
+    .code-chip { display: none; }
+    .window { transform: none; }
+  }
 
-    @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .stats-grid { grid-template-columns: repeat(3,1fr); }
-      .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .founder-image-frame { max-width: 400px; margin: 0 auto; }
-      nav ul { flex-wrap: wrap; justify-content: center; border-radius: 20px; padding: 0.5rem; gap: 0.3rem; }
-      nav a { padding: 0.4rem 1rem; font-size: 0.8rem; }
-    }
-    @media (max-width: 640px) {
-      .nav-inner { flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
-      nav ul { gap: 0.3rem; }
-      nav a { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
-      .hero h1 { font-size: 2.6rem; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .container { padding: 0 1.2rem; }
-      .whatsapp-float { width: 52px; height: 52px; font-size: 24px; bottom: 20px; right: 20px; }
-      .nav-cta { padding: 0.3rem 1rem !important; font-size: 0.7rem !important; }
-      .founder-image-frame { max-width: 320px; }
-      .founder-info h3 { font-size: 1.4rem; }
-      .founder-quote p { font-size: 1rem; padding-left: 0.5rem; }
-      .founder-quote::before { font-size: 2rem; }
-    }
-  </style>
+  @media (max-width: 480px) {
+    .container { padding: 0 1.1rem; }
+    .nav-inner { padding: 0.8rem 1.1rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .contact-form { padding: 1.4rem; }
+    .section-head { margin-bottom: 2.5rem; }
+  }
+</style>
 </head>
 <body>
-<div class="bg-glow bg-glow-1"></div>
-<div class="bg-glow bg-glow-2"></div>
-<div class="bg-grid"></div>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/250780264668?text=Hello%20Shyakon%20Team%2C%0A%0AI%20visited%20your%20website%20and%20I%27m%20interested%20in%20your%20software%20development%20services.%20I%20would%20like%20to%20discuss%20my%20project%20with%20you.%0A%0APlease%20get%20back%20to%20me.%0A%0AThank%20you." target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">💬</a>
-
-<!-- NAV -->
+<!-- ============ NAVBAR ============ -->
 <header class="navbar" id="navbar">
   <div class="nav-inner">
-    <div class="logo">
-      <img src="shyakon-logo.png" alt="Shyakon Logo" class="logo-img" />
+    <a href="#home" class="logo">
+      <img src="shyakon-logo.png" alt="Shyakon" class="logo-img" />
       Shyakon
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active" data-section="home"><span class="nav-icon">⌂</span> Home</a></li>
-        <li><a href="#services" data-section="services"><span class="nav-icon">◆</span> Services</a></li>
-        <li><a href="#projects" data-section="projects"><span class="nav-icon">◈</span> Projects</a></li>
-        <li><a href="#founder" data-section="founder"><span class="nav-icon">◉</span> Founder</a></li>
-        <li><a href="#contact" class="nav-cta" data-section="contact"><span class="nav-icon">→</span> Contact</a></li>
-      </ul>
-    </nav>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#philosophy">Approach</a></li>
+      <li><a href="#founder">Founder</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+    </ul>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- ============ HERO ============ -->
 <section class="hero" id="home">
   <div class="container hero-grid">
     <div>
-      <span class="hero-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> enterprise software company</span>
-      <h1>Engineering <span>mission-critical</span> software for modern enterprises.</h1>
-      <p>We build secure, scalable, AI-powered platforms for hotels, hospitals, financial institutions, government agencies, and global organizations.</p>
-      <div class="hero-industries">
-        <span>🏨 Hotels</span><span>🏥 Healthcare</span><span>🏦 Finance</span><span>🏛️ Government</span><span>🏭 Manufacturing</span><span>📦 Logistics</span>
-      </div>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">Start your project →</a>
-        <a href="#projects" class="btn-outline">View our work</a>
-      </div>
-    </div>
-    <div class="dash-mock">
-      <div class="dash-row"><span style="color:#94A3B8;font-size:0.75rem;">● system overview</span><div class="dash-dot"><span></span><span></span><span></span></div></div>
-      <div class="dash-metrics">
-        <div class="dash-metric"><div class="num">99.99%</div><div class="lbl">uptime</div></div>
-        <div class="dash-metric"><div class="num">1.2M</div><div class="lbl">requests/s</div></div>
-      </div>
-      <div class="dash-chart"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
-      <div class="dash-status"><span>🔒 256-bit encryption</span><span class="online">● all systems nominal</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- TECH STRIP -->
-<section class="tech-strip">
-  <div class="container tech-grid">
-    <span class="tech-item">Python</span><span class="tech-item">FastAPI</span><span class="tech-item">React</span><span class="tech-item">Next.js</span>
-    <span class="tech-item">Flutter</span><span class="tech-item">Docker</span><span class="tech-item">Redis</span><span class="tech-item">TensorFlow</span>
-    <span class="tech-item">PostgreSQL</span><span class="tech-item">Azure</span><span class="tech-item">AWS</span><span class="tech-item">Kubernetes</span>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="section">
-  <div class="container">
-    <h2 class="section-title">Enterprise services</h2>
-    <p class="section-sub">End-to-end solutions built for scale, security, and performance. Trusted by global enterprises.</p>
-    <div class="cards-grid">
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg><h3>Enterprise Software</h3><p>Custom platforms, ERP, and internal systems for complex organizations.</p><div class="tech-tags"><span>Python</span><span>React</span></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><h3>AI & Machine Learning</h3><p>Predictive models, NLP, and intelligent automation for data-driven decisions.</p><div class="tech-tags"><span>TensorFlow</span><span>PyTorch</span></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg><h3>Cloud & DevOps</h3><p>AWS, Azure, GCP. Kubernetes, serverless, and CI/CD pipelines.</p><div class="tech-tags"><span>Docker</span><span>K8s</span></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v2M16 2v2"/></svg><h3>Web & Mobile Apps</h3><p>Scalable SaaS, dashboards, and cross-platform mobile experiences.</p><div class="tech-tags"><span>Next.js</span><span>Flutter</span></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M3 15h18M6 21h12M6 3h12"/></svg><h3>Business Automation</h3><p>Streamline operations with workflow automation and system integration.</p><div class="tech-tags"><span>Node</span><span>PostgreSQL</span></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><h3>Cybersecurity</h3><p>Zero-trust architecture, encryption, and compliance frameworks.</p><div class="tech-tags"><span>Auth0</span><span>Vault</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="section">
-  <div class="container">
-    <h2 class="section-title">Featured solutions</h2>
-    <p class="section-sub">Enterprise-grade systems deployed for global organizations.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem;">
-      <div class="project-card">
-        <span class="project-status operational">● operational</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">AI Triage System</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">Intelligent patient prioritization for emergency departments. 94% accuracy.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>TensorFlow</span><span>FastAPI</span><span>React</span></div>
-        <div class="project-metrics"><span><strong>94%</strong> accuracy</span><span><strong>60%</strong> faster</span><span><strong>1.2M</strong> patients</span></div>
-      </div>
-      <div class="project-card">
-        <span class="project-status deployed">● deployed</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">Multi-Agency Reporting</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">Unified incident reporting for 50+ government agencies.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>Next.js</span><span>PostgreSQL</span><span>Azure</span></div>
-        <div class="project-metrics"><span><strong>50+</strong> agencies</span><span><strong>99.99%</strong> uptime</span><span><strong>2.4M</strong> reports</span></div>
-      </div>
-      <div class="project-card">
-        <span class="project-status operational">● operational</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">Hotel Management Platform</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">Full-stack PMS for luxury hotel chain. 40% faster check-in.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>React</span><span>Django</span><span>Redis</span></div>
-        <div class="project-metrics"><span><strong>40%</strong> faster</span><span><strong>12</strong> properties</span><span><strong>99.9%</strong> availability</span></div>
-      </div>
-      <div class="project-card">
-        <span class="project-status deployed">● deployed</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">Fraud Detection AI</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">Real-time transaction monitoring for a top-10 bank.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>PyTorch</span><span>Kafka</span><span>AWS</span></div>
-        <div class="project-metrics"><span><strong>99.7%</strong> precision</span><span><strong>$1.2B</strong> protected</span><span><strong>5M</strong> tx/day</span></div>
-      </div>
-      <div class="project-card">
-        <span class="project-status operational">● operational</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">Smart Hospital Platform</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">IoT + AI for 12 hospitals. Real-time monitoring and optimization.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>Flutter</span><span>Node.js</span><span>K8s</span></div>
-        <div class="project-metrics"><span><strong>12</strong> hospitals</span><span><strong>40%</strong> efficiency</span><span><strong>24/7</strong> monitoring</span></div>
-      </div>
-      <div class="project-card">
-        <span class="project-status deployed">● deployed</span>
-        <h3 style="color:#F8FAFC;margin-bottom:0.5rem;">Inventory Management</h3>
-        <p style="color:#94A3B8;font-size:0.9rem;">Real-time tracking for 500+ retail locations.</p>
-        <div class="tech-tags" style="margin:1rem 0;"><span>Node</span><span>PostgreSQL</span><span>Docker</span></div>
-        <div class="project-metrics"><span><strong>500+</strong> locations</span><span><strong>30%</strong> reduction</span><span><strong>99.9%</strong> accuracy</span></div>
+      <span class="eyebrow">Software Engineering · Rwanda</span>
+      <h1 class="display">We turn complex business problems into <em>intelligent software.</em></h1>
+      <p>From custom business platforms to AI-powered applications, Shyakon engineers digital solutions that help organizations operate smarter, serve customers better and grow.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">
+          Explore our work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Let's discuss your project</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- STATS -->
-<section style="background:#0B1120;padding:3rem 0;border-top:1px solid rgba(255,255,255,0.04);">
-  <div class="container stats-grid">
-    <div class="stat-item"><div class="stat-number" data-count="120">120+</div><div>projects delivered</div></div>
-    <div class="stat-item"><div class="stat-number" data-count="99.99">99.99%</div><div>system reliability</div></div>
-    <div class="stat-item"><div class="stat-number" data-count="24">24/7</div><div>enterprise support</div></div>
-    <div class="stat-item"><div class="stat-number" data-count="1.5">1.5M+</div><div>users supported</div></div>
-    <div class="stat-item"><div class="stat-number" data-count="100">100%</div><div>client satisfaction</div></div>
-  </div>
-</section>
-
-<!-- ===== FOUNDER SECTION ===== -->
-<section id="founder" class="founder-section">
-  <div class="container">
-    <div class="founder-grid">
-      <!-- Left: Founder Image -->
-      <div class="founder-image-wrapper">
-        <div class="founder-image-frame">
-          <img src="shyakabn.jpeg" alt="Shyaka Heritier - Founder & CEO of Shyakon" />
+    <div class="hero-visual">
+      <div class="window">
+        <div class="window-bar">
+          <span></span><span></span><span></span>
+          <span class="title">serveriq / live orders</span>
         </div>
-        <div class="founder-info">
-          <h3>Shyaka Heritier</h3>
-          <div class="title">Founder & Chief Executive Officer</div>
-          <div class="subtitle">Software Engineer | AI Solutions Architect</div>
+        <div class="window-body">
+          <div class="dash-head">
+            <h4>Table overview</h4>
+            <span class="tag">LIVE</span>
+          </div>
+          <div class="dash-rows">
+            <div class="dash-row">
+              <span class="name">Table 04 · 2 items</span>
+              <span class="meta">12:41</span>
+              <span class="badge badge-lime">Ready</span>
+            </div>
+            <div class="dash-row">
+              <span class="name">Table 07 · 3 items</span>
+              <span class="meta">12:44</span>
+              <span class="badge badge-cobalt">Preparing</span>
+            </div>
+            <div class="dash-row">
+              <span class="name">Table 12 · 1 item</span>
+              <span class="meta">12:46</span>
+              <span class="badge badge-neutral">New</span>
+            </div>
+            <div class="dash-row">
+              <span class="name">Table 02 · 4 items</span>
+              <span class="meta">12:38</span>
+              <span class="badge badge-lime">Served</span>
+            </div>
+          </div>
+          <div class="chart-mini">
+            <i style="height:38%"></i><i style="height:62%"></i><i style="height:48%"></i>
+            <i style="height:82%"></i><i style="height:56%"></i><i style="height:94%"></i>
+            <i style="height:70%"></i><i style="height:88%"></i>
+          </div>
         </div>
       </div>
-
-      <!-- Right: Founder Story -->
-      <div class="founder-content">
-        <h2 class="section-title" style="font-size:2.4rem;margin-bottom:0.5rem;">Leadership</h2>
-        <p class="bio">
-          Shyaka Heritier founded Shyakon with a vision of helping organizations solve complex business challenges through intelligent, secure, and scalable software. His focus is on delivering enterprise-grade digital solutions that combine modern engineering practices, artificial intelligence, and cloud technologies to create long-term business value.
-        </p>
-        <p class="bio">
-          With a deep commitment to quality and innovation, Shyaka leads a team of world-class engineers dedicated to building software that powers mission-critical operations across hotels, healthcare, finance, government, and manufacturing.
-        </p>
-        <div class="founder-quote">
-          <p>"Great software is not measured by its complexity, but by the value it creates for the people who use it."</p>
-        </div>
+      <div class="code-chip">
+        <div><span class="k">def</span> <span class="s">prioritize</span>(patient):</div>
+        <div>&nbsp;&nbsp;risk = model.predict()</div>
+        <div>&nbsp;&nbsp;<span class="k">return</span> queue.insert(risk)</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section style="background:#0B1120;padding:4rem 0;border-top:1px solid rgba(255,255,255,0.04);">
-  <div class="container">
-    <h2 class="section-title">Trusted by leaders</h2>
-    <div class="testimonial-grid">
-      <div class="testimonial-card"><div class="stars">★★★★★</div><p style="color:#F8FAFC;">“Shyakon delivered a platform that scaled 10x without a single issue. Their team is exceptional.”</p><p style="margin-top:1rem;color:#94A3B8;">— CTO, FinTech</p></div>
-      <div class="testimonial-card"><div class="stars">★★★★★</div><p style="color:#F8FAFC;">“The most professional development team we've worked with. True enterprise quality.”</p><p style="margin-top:1rem;color:#94A3B8;">— VP Eng, Healthcare</p></div>
-      <div class="testimonial-card"><div class="stars">★★★★★</div><p style="color:#F8FAFC;">“Our hotel management system transformed our operations. Shyakon understood our needs perfectly.”</p><p style="margin-top:1rem;color:#94A3B8;">— COO, Luxury Hotels</p></div>
+<!-- ============ TRUST BAR ============ -->
+<div class="trust">
+  <div class="container trust-inner">
+    <span class="trust-label">Built with</span>
+    <div class="trust-items">
+      <span>Python</span>
+      <span>FastAPI</span>
+      <span>React</span>
+      <span>PostgreSQL</span>
+      <span>Node.js</span>
+      <span>Redis</span>
+      <span>XGBoost</span>
     </div>
   </div>
-</section>
-
-<!-- FAQ -->
-<section class="section" style="background:#050816;">
-  <div class="container">
-    <h2 class="section-title">Frequently asked questions</h2>
-    <div class="faq-item"><div class="faq-question">How long does development take? <span style="color:#00E5FF;">+</span></div><div class="faq-answer">Typically 4–12 weeks depending on scope. We work in agile sprints with continuous delivery.</div></div>
-    <div class="faq-item"><div class="faq-question">How much does a project cost? <span style="color:#00E5FF;">+</span></div><div class="faq-answer">Every project is unique. We provide detailed estimates after a discovery session.</div></div>
-    <div class="faq-item"><div class="faq-question">Do you provide ongoing support? <span style="color:#00E5FF;">+</span></div><div class="faq-answer">Yes, 24/7 enterprise support with SLAs and dedicated account teams.</div></div>
-    <div class="faq-item"><div class="faq-question">Can you modernize existing systems? <span style="color:#00E5FF;">+</span></div><div class="faq-answer">Absolutely. We specialize in migrating legacy systems to modern architectures.</div></div>
-    <div class="faq-item"><div class="faq-question">Do you build custom solutions? <span style="color:#00E5FF;">+</span></div><div class="faq-answer">Yes, every solution is custom-built to meet your specific business requirements.</div></div>
-  </div>
-</section>
-
-<!-- CTA SECTION -->
-<section class="cta-section">
-  <div class="container">
-    <h2>Ready to transform your business <span style="background:linear-gradient(135deg,#00E5FF,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">with intelligent software?</span></h2>
-    <p>Whether you're building from scratch or modernizing existing systems, Shyakon is ready to help you create secure, scalable, high-performance solutions.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="#contact" class="btn-primary">Schedule a consultation →</a>
-      <a href="https://wa.me/250780264668?text=Hello%20Shyakon%20Team%2C%0A%0AI%20visited%20your%20website%20and%20I%27m%20interested%20in%20your%20software%20development%20services.%20I%20would%20like%20to%20discuss%20my%20project%20with%20you.%0A%0APlease%20get%20back%20to%20me.%0A%0AThank%20you." target="_blank" class="btn-outline">Chat on WhatsApp →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" style="background:#0B1120;padding:5rem 0;">
-  <div class="container contact-grid">
-    <div>
-      <h2 class="section-title" style="font-size:2.4rem;">Let's build together</h2>
-      <p style="color:#94A3B8;margin-bottom:2rem;">Get a free consultation. We respond within 24 hours.</p>
-      <div class="quick-card"><span style="font-size:1.5rem;">📧</span><div><strong>Email</strong><br style="color:#94A3B8;">shyakaheritier01@gmail.com</div></div>
-      <div class="quick-card"><span style="font-size:1.5rem;">📱</span><div><strong>WhatsApp</strong><br style="color:#94A3B8;">+250 780 264 668</div></div>
-      <div class="quick-card"><span style="font-size:1.5rem;">🕒</span><div><strong>Business Hours</strong><br style="color:#94A3B8;">Mon–Sat, 08:00 – 18:00 CAT</div></div>
-      <div class="quick-card"><span style="font-size:1.5rem;">⚡</span><div><strong>Response Time</strong><br style="color:#94A3B8;">Usually within 24 hours</div></div>
-    </div>
-    <div class="contact-form">
-      <form id="contactForm">
-        <input type="text" id="fullName" placeholder="Full Name" required />
-        <input type="text" id="companyName" placeholder="Company Name" />
-        <input type="email" id="emailAddress" placeholder="Email Address" required />
-        <input type="tel" id="phoneNumber" placeholder="Phone Number" />
-        <input type="text" id="subject" placeholder="Subject" />
-        <select id="projectType">
-          <option value="">Project Type</option>
-          <option>Enterprise Software</option>
-          <option>Web Application</option>
-          <option>Mobile Application</option>
-          <option>AI / Machine Learning</option>
-          <option>Cloud Infrastructure</option>
-          <option>Business Automation</option>
-          <option>Hotel Management System</option>
-          <option>Healthcare System</option>
-          <option>Other</option>
-        </select>
-        <input type="text" id="budget" placeholder="Budget (Optional)" />
-        <textarea id="message" rows="4" placeholder="Tell us about your project" required></textarea>
-        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;">Send message →</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- NOTIFICATION -->
-<div class="notification" id="notification">
-  <h4 id="notifTitle">✓ Message sent</h4>
-  <p id="notifMessage">Thank you for contacting Shyakon. Our team will respond within 24 hours.</p>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="logo">
-        <img src="shyakon-logo.png" alt="Shyakon Logo" class="logo-img" />
-        Shyakon
-      </div>
-      <p style="margin-top:0.8rem;max-width:280px;color:#94A3B8;">Enterprise software that powers mission-critical operations.</p>
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2 class="display">Services engineered around your business.</h2>
+      <p>Every engagement starts with understanding your operations, not picking a technology. These are the areas where Shyakon delivers the most value.</p>
     </div>
-    <div><h4 style="color:#F8FAFC;">Solutions</h4><a href="#">AI & ML</a><a href="#">Cloud</a><a href="#">Security</a><a href="#">Automation</a></div>
-    <div><h4 style="color:#F8FAFC;">Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a></div>
-    <div><h4 style="color:#F8FAFC;">Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+
+    <div class="services-grid">
+      <article class="service-card">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg>
+        </div>
+        <h3>Custom Software Engineering</h3>
+        <p>Business applications built around your specific operational requirements — not forced into a rigid template.</p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg>
+        </div>
+        <h3>Artificial Intelligence</h3>
+        <p>Intelligent applications, predictive models and AI-powered automation integrated into real workflows.</p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg>
+        </div>
+        <h3>SaaS Product Development</h3>
+        <p>Scalable software products designed for recurring business value and multi-tenant deployment.</p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">04</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <h3>Web Applications</h3>
+        <p>Modern business platforms, portals and administrative dashboards built for daily operational use.</p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">05</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+        </div>
+        <h3>Business Automation</h3>
+        <p>Software that reduces manual work, eliminates repetitive tasks and improves business operations.</p>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">06</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/></svg>
+        </div>
+        <h3>Backend & Database Engineering</h3>
+        <p>Reliable APIs, secure databases and real-time application systems built to last and scale.</p>
+      </article>
+    </div>
   </div>
-  <div class="copyright">© 2025 Shyakon. All rights reserved.</div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="projects-section" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Selected work</span>
+      <h2 class="display">Real projects. Real code.</h2>
+      <p>A selection of products and platforms I've designed and built — an independent SaaS product, an academic AI case study, and client software across hospitality and construction.</p>
+    </div>
+
+    <!-- PROJECT 01 — ServerIQ -->
+    <article class="project">
+      <div class="project-visual">
+        <div class="mock" style="position:relative;">
+          <div class="qr-badge"><div class="qr"></div>SCAN</div>
+          <div class="mock-bar"><i></i><i></i><i></i></div>
+          <div class="mock-body">
+            <div class="phone-wrap">
+              <div class="phone">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <h5>Menu · Table 04</h5>
+                  <div class="menu-item">
+                    <div class="menu-thumb"></div>
+                    <div class="menu-info"><h6>Grilled chicken</h6><div class="price">8,000 RWF</div></div>
+                  </div>
+                  <div class="menu-item">
+                    <div class="menu-thumb"></div>
+                    <div class="menu-info"><h6>Beef brochette</h6><div class="price">6,500 RWF</div></div>
+                  </div>
+                  <div class="menu-item">
+                    <div class="menu-thumb"></div>
+                    <div class="menu-info"><h6>Fresh juice</h6><div class="price">2,000 RWF</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta">
+          <span class="pill status-live">Independent SaaS</span>
+          <span class="pill">Restaurant Technology</span>
+        </div>
+        <h3>ServerIQ</h3>
+        <p>A digital restaurant ordering and table management platform that helps restaurants improve customer service and make ordering easier.</p>
+        <ul class="project-features">
+          <li>Customers scan a QR code at their table</li>
+          <li>Browse a digital menu with food pictures and prices</li>
+          <li>Place orders directly from their phones</li>
+          <li>Staff receive orders tagged with the exact table number</li>
+          <li>Waiters serve more tables with fewer trips</li>
+        </ul>
+        <div class="tech-tags">
+          <span>React</span><span>FastAPI</span><span>PostgreSQL</span><span>WebSockets</span><span>MTN Mobile Money</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT 02 — Triage -->
+    <article class="project reverse">
+      <div class="project-visual">
+        <div class="mock">
+          <div class="mock-bar"><i></i><i></i><i></i></div>
+          <div class="mock-body">
+            <div class="dash-head">
+              <h4>Priority queue</h4>
+              <span class="tag" style="color:#8A9BFF;border-color:rgba(61,90,254,0.4);">TRIAGE</span>
+            </div>
+            <div class="triage-rows">
+              <div class="triage-row">
+                <div class="avatar">PN</div>
+                <div class="info"><div class="nm">Patient A</div><div class="cond">Chest pain · 58y</div></div>
+                <span class="priority p1">P1</span>
+                <div class="risk-bar"><i style="width:92%;background:#F87171;"></i></div>
+              </div>
+              <div class="triage-row">
+                <div class="avatar" style="background:linear-gradient(135deg,#FBBF24,#F59E0B);">JK</div>
+                <div class="info"><div class="nm">Patient B</div><div class="cond">Fracture · 34y</div></div>
+                <span class="priority p2">P2</span>
+                <div class="risk-bar"><i style="width:64%;background:#FBBF24;"></i></div>
+              </div>
+              <div class="triage-row">
+                <div class="avatar" style="background:linear-gradient(135deg,#C8F751,#A8D63E);color:#0E0F0C;">MN</div>
+                <div class="info"><div class="nm">Patient C</div><div class="cond">Follow-up · 41y</div></div>
+                <span class="priority p3">P3</span>
+                <div class="risk-bar"><i style="width:28%;background:var(--lime);"></i></div>
+              </div>
+            </div>
+            <div style="margin-top:0.9rem;padding-top:0.9rem;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.62rem;color:var(--muted);display:flex;justify-content:space-between;">
+              <span>SHAP: risk drivers</span>
+              <span style="color:var(--lime);">✓ explainable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta">
+          <span class="pill status-academic">Academic · Case study</span>
+          <span class="pill">Healthcare Technology</span>
+        </div>
+        <h3>Intelligent Patient Triage System</h3>
+        <p>A real-time intelligent patient triage and priority queue management system developed as a university final-year project.</p>
+        <p style="font-size:0.85rem;color:var(--muted-2);">Case study context: Ruhengeri Level Two Teaching Hospital, Rwanda. Presented as a clinical decision-support system — not a diagnostic tool, and not clinically validated or commercially deployed.</p>
+        <ul class="project-features">
+          <li>Patient registration and triage workflow</li>
+          <li>Intelligent patient priority recommendations</li>
+          <li>Machine learning-based risk prediction</li>
+          <li>Real-time priority queue management</li>
+          <li>Nurse, doctor and administrator roles</li>
+          <li>Explainable AI using SHAP + doctor override rules</li>
+        </ul>
+        <div class="tech-tags">
+          <span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>WebSockets</span><span>SQLAlchemy</span><span>XGBoost</span><span>SHAP</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT 03 — Africo -->
+    <article class="project">
+      <div class="project-visual">
+        <div class="mock site-mock">
+          <div class="mock-bar"><i></i><i></i><i></i></div>
+          <div class="mock-body">
+            <div class="hero-skel">Africo Engineering Group</div>
+            <div class="grid-3">
+              <div></div><div></div><div></div>
+            </div>
+            <div style="margin-top:0.6rem;display:grid;grid-template-columns:2fr 1fr;gap:0.5rem;">
+              <div style="height:34px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;"></div>
+              <div style="height:34px;background:linear-gradient(135deg,rgba(200,247,81,0.2),var(--bg-2));border:1px solid var(--line);border-radius:6px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta">
+          <span class="pill status-client">Client project</span>
+          <span class="pill">Corporate Software</span>
+        </div>
+        <h3>Africo Engineering Group</h3>
+        <p>A corporate digital platform developed for an engineering and construction company — presenting their services, projects and company information through a professional web experience.</p>
+        <ul class="project-features">
+          <li>Professional company presentation</li>
+          <li>Project and service information</li>
+          <li>Company information management</li>
+          <li>Contact and inquiry experience</li>
+          <li>Administrative capabilities where implemented</li>
+        </ul>
+        <div class="tech-tags">
+          <span>Node.js</span><span>Express</span><span>PostgreSQL</span>
+        </div>
+        <a href="https://africoengineeringgroupltd.com" target="_blank" rel="noopener" class="project-link">
+          Visit africoingineeringgroupltd.com
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- PROJECT 04 — Cape Town K Hotel -->
+    <article class="project reverse">
+      <div class="project-visual">
+        <div class="mock site-mock">
+          <div class="mock-bar"><i></i><i></i><i></i></div>
+          <div class="mock-body">
+            <div class="hero-skel" style="background:linear-gradient(135deg,rgba(200,247,81,0.18),rgba(61,90,254,0.15));">Cape Town K Hotel</div>
+            <div class="grid-3" style="grid-template-columns:1fr 1fr;">
+              <div style="height:60px;background:linear-gradient(135deg,#1B1E18,#141612);"></div>
+              <div style="height:60px;background:linear-gradient(135deg,#141612,#1B1E18);"></div>
+            </div>
+            <div style="margin-top:0.5rem;height:28px;background:linear-gradient(90deg,var(--lime),rgba(200,247,81,0.3));border-radius:6px;opacity:0.7;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta">
+          <span class="pill status-client">Client project</span>
+          <span class="pill">Hospitality Technology</span>
+        </div>
+        <h3>Cape Town K Hotel</h3>
+        <p>A digital hotel website developed for a 23-room hospitality business in Cape Town — designed to present rooms and facilities and drive direct booking inquiries.</p>
+        <ul class="project-features">
+          <li>Hotel information and room presentation</li>
+          <li>Image gallery</li>
+          <li>WhatsApp-based booking inquiries</li>
+          <li>Contact information and responsive design</li>
+        </ul>
+        <div class="tech-tags">
+          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Cloudflare Pages</span>
+        </div>
+        <a href="https://capetown-k-hotel.netlify.app" target="_blank" rel="noopener" class="project-link">
+          Visit capetown-k-hotel.netlify.app
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- PROJECT 05 — Ananda Motel -->
+    <article class="project">
+      <div class="project-visual">
+        <div class="mock site-mock">
+          <div class="mock-bar"><i></i><i></i><i></i></div>
+          <div class="mock-body">
+            <div class="hero-skel" style="background:linear-gradient(135deg,rgba(200,247,81,0.15),rgba(61,90,254,0.12));">Ananda Motel</div>
+            <div class="grid-3">
+              <div style="height:40px;"></div>
+              <div style="height:40px;"></div>
+              <div style="height:40px;"></div>
+            </div>
+            <div style="margin-top:0.5rem;display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <div style="height:24px;background:var(--bg-2);border:1px solid var(--line);border-radius:5px;"></div>
+              <div style="height:24px;background:var(--bg-2);border:1px solid var(--line);border-radius:5px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-copy">
+        <div class="project-meta">
+          <span class="pill status-client">Client project</span>
+          <span class="pill">Hospitality Technology</span>
+        </div>
+        <h3>Ananda Motel</h3>
+        <p>A digital platform developed for Ananda Motel to present its accommodation, conference facilities and restaurant online.</p>
+        <ul class="project-features">
+          <li>Property presentation</li>
+          <li>Two apartments + two conference rooms</li>
+          <li>Restaurant information</li>
+          <li>Contact and inquiry forms</li>
+        </ul>
+        <div class="tech-tags">
+          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Cloudflare Pages</span>
+        </div>
+        <a href="https://www.anandamotel.com" target="_blank" rel="noopener" class="project-link">
+          Visit anandamotel.com
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section class="section philosophy" id="philosophy">
+  <div class="container">
+    <div class="phil-grid">
+      <div class="phil-quote">
+        <span class="eyebrow" style="margin-bottom:1.2rem;">Our approach</span>
+        <blockquote class="display">Technology is only valuable when it <em>solves a real problem.</em></blockquote>
+      </div>
+      <div class="phil-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Understand</h4>
+            <p>We start by understanding your business, your workflow and the challenges you actually face — not by proposing a technology.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Design</h4>
+            <p>We plan a practical solution around real requirements, shaped by the way your team and customers already work.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Engineer</h4>
+            <p>We build reliable, secure and maintainable software — with clean architecture and sensible engineering choices.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <h4>Improve</h4>
+            <p>We test, deploy and continuously improve the solution as your needs evolve and real usage reveals new opportunities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOUNDER ============ -->
+<section class="section founder" id="founder">
+  <div class="container">
+    <div class="founder-grid">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo">
+          <img src="shyakabn.jpeg" alt="Shyaka Heritier, Founder of Shyakon" />
+        </div>
+        <div class="founder-photo-caption">
+          <strong>Shyaka Heritier</strong>
+          <span>Founder · Shyakon</span>
+        </div>
+      </div>
+      <div class="founder-copy">
+        <span class="eyebrow">Leadership</span>
+        <h2 class="display">Software engineer. AI-focused developer. Technology entrepreneur.</h2>
+        <p>Shyaka Heritier is a software engineer and technology entrepreneur focused on building practical digital solutions. Through Shyakon, he works on software products and custom applications that help businesses solve operational challenges, improve customer experiences and embrace digital transformation.</p>
+        <p>His work spans business software, hospitality technology, SaaS development and artificial intelligence — with a strong emphasis on understanding the problem before writing the code.</p>
+        <div class="founder-tags">
+          <span>Software Engineer</span>
+          <span>AI-focused Developer</span>
+          <span>Founder</span>
+          <span>Rwanda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section class="section" id="stack">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Technology</span>
+      <h2 class="display">The tools behind the work.</h2>
+      <p>Technologies I've actually worked with across real projects — not a logo wall.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h5>Backend</h5>
+        <ul><li>Python</li><li>FastAPI</li><li>Node.js</li><li>Express</li></ul>
+      </div>
+      <div class="stack-card">
+        <h5>Frontend</h5>
+        <ul><li>React</li><li>JavaScript</li><li>HTML</li><li>CSS</li></ul>
+      </div>
+      <div class="stack-card">
+        <h5>Data & AI</h5>
+        <ul><li>PostgreSQL</li><li>SQLAlchemy</li><li>XGBoost</li><li>SHAP</li></ul>
+      </div>
+      <div class="stack-card">
+        <h5>Infrastructure</h5>
+        <ul><li>Redis</li><li>Render</li><li>Cloudflare</li><li>Git & GitHub</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-head" style="text-align:center;margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="justify-content:center;">FAQ</span>
+      <h2 class="display">Questions, answered.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq">
+        <button class="faq-q" aria-expanded="false">How do we start a project? <span class="ic"></span></button>
+        <div class="faq-a"><p>Get in touch through the contact form or WhatsApp. We'll set up a short discovery call to understand your business, then send a written proposal with scope, timeline and cost.</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q" aria-expanded="false">How long does a project take? <span class="ic"></span></button>
+        <div class="faq-a"><p>It depends on scope. A focused web platform typically takes 4–10 weeks; larger SaaS products run longer. We work in short iterations so you see progress early.</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q" aria-expanded="false">Can you modernise an existing system? <span class="ic"></span></button>
+        <div class="faq-a"><p>Yes. A large part of the work is improving, extending or rebuilding existing software — including migrating legacy systems to more modern architectures.</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q" aria-expanded="false">Do you provide ongoing support? <span class="ic"></span></button>
+        <div class="faq-a"><p>Yes — support and maintenance can be arranged after launch, and we'll agree on response times appropriate to your project.</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q" aria-expanded="false">Do you work with clients outside Rwanda? <span class="ic"></span></button>
+        <div class="faq-a"><p>Yes. Shyakon is based in Rwanda and works with clients locally and internationally. Communication is handled remotely through scheduled calls and shared project tools.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="container cta-inner">
+    <span class="eyebrow" style="margin-bottom:1rem;justify-content:center;">Let's build</span>
+    <h2 class="display">Have a business problem that <em>software could solve?</em></h2>
+    <p>Whether you're building from scratch or improving something existing, Shyakon is ready to help you design and engineer the right solution.</p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn btn-primary">
+        Start a conversation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://wa.me/250780264668?text=Hello%20Shyakon%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="btn btn-ghost">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <span class="eyebrow">Contact</span>
+      <h2 class="display" style="margin-top:0.8rem;">Let's build something useful.</h2>
+      <p>Tell us about your business and what you're trying to solve. We'll reply personally, usually within 24 hours.</p>
+
+      <div class="contact-methods">
+        <a href="mailto:shyakaheritier01@gmail.com" class="method">
+          <div class="method-ic">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <div class="method-txt"><strong>Email</strong><span>shyakaheritier01@gmail.com</span></div>
+        </a>
+        <a href="https://wa.me/250780264668" target="_blank" rel="noopener" class="method">
+          <div class="method-ic">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="method-txt"><strong>WhatsApp</strong><span>+250 780 264 668</span></div>
+        </a>
+        <div class="method">
+          <div class="method-ic">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="method-txt"><strong>Business hours</strong><span>Mon–Sat · 08:00–18:00 CAT</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full name *</label>
+          <input type="text" id="fullName" name="fullName" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="companyName">Company</label>
+          <input type="text" id="companyName" name="companyName" autocomplete="organization" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="emailAddress">Email *</label>
+          <input type="email" id="emailAddress" name="email" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone</label>
+          <input type="tel" id="phoneNumber" name="phone" autocomplete="tel" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="projectType">Project type</label>
+          <select id="projectType" name="projectType">
+            <option value="">Select…</option>
+            <option>Custom Software</option>
+            <option>Web Application</option>
+            <option>SaaS Product</option>
+            <option>AI / Machine Learning</option>
+            <option>Business Automation</option>
+            <option>Backend / Database</option>
+            <option>Consulting</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="budget">Estimated budget</label>
+          <input type="text" id="budget" name="budget" placeholder="Optional" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Project description *</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your business and what you're trying to solve…"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit" id="submitBtn">
+        Send message
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="form-note">Usually a reply within 24 hours · No obligation</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <img src="shyakon-logo.png" alt="Shyakon" class="logo-img" />
+          Shyakon
+        </a>
+        <p>Software engineering, AI solutions and digital products that solve real business problems.</p>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Custom Software</a></li>
+          <li><a href="#services">Artificial Intelligence</a></li>
+          <li><a href="#services">SaaS Products</a></li>
+          <li><a href="#services">Web Applications</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#philosophy">Approach</a></li>
+          <li><a href="#founder">Founder</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in touch</h5>
+        <ul>
+          <li><a href="mailto:shyakaheritier01@gmail.com">shyakaheritier01@gmail.com</a></li>
+          <li><a href="https://wa.me/250780264668" target="_blank" rel="noopener">+250 780 264 668</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Shyakon. All rights reserved.</span>
+      <span class="mono">Founded by Shyaka Heritier · Rwanda</span>
+    </div>
+  </div>
 </footer>
 
+<!-- ============ WHATSAPP FLOAT ============ -->
+<a href="https://wa.me/250780264668?text=Hello%20Shyakon%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.6 6.3a8.9 8.9 0 0 0-13.4 11L3 22l4.9-1.3a8.9 8.9 0 0 0 12.7-5.5 8.9 8.9 0 0 0-3-8.9zM12 20.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.9.8.8-2.8-.2-.3A7.4 7.4 0 1 1 12 20.1zm4.1-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.6.1-.2.2-.7.9-.9 1-.2.1-.3.2-.5 0-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.3.1-.4l.4-.4c.1-.1.2-.2.3-.3.1-.1.1-.2.2-.4 0-.1 0-.3-.1-.4l-.6-1.5c-.2-.4-.4-.3-.6-.3h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.1 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1z"/></svg>
+</a>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast">
+  <span class="msg" id="toastMsg">Message sent</span>
+</div>
+
+<!-- =====================================================
+     EMAILJS CONFIGURATION
+     ⚠️ FILL THESE IN WITH YOUR ACTUAL EMAILJS CREDENTIALS.
+     If left empty, the form will automatically fall back
+     to opening the user's email client with a pre-filled
+     message to shyakaheritier01@gmail.com — this works
+     without any configuration at all.
+     ===================================================== -->
 <script>
-  // ---- NAVIGATION ----
+  const EMAILJS_PUBLIC_KEY  = ''; // e.g. 'AbCdEfGhIjKlMnOp'
+  const EMAILJS_SERVICE_ID  = ''; // e.g. 'service_xxxxxxx'
+  const EMAILJS_TEMPLATE_ID = ''; // e.g. 'template_xxxxxxx'
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- NAVBAR ---------- */
   const navbar = document.getElementById('navbar');
-  const navLinks = document.querySelectorAll('nav a[data-section]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const menuToggle = document.getElementById('menuToggle');
+  const navList = document.getElementById('navLinks');
 
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  window.addEventListener('scroll', function () {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* mobile menu */
+  menuToggle.addEventListener('click', function () {
+    const open = navList.classList.toggle('mobile-open');
+    menuToggle.classList.toggle('open', open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
-  function updateActiveLink() {
-    const sections = ['home', 'services', 'projects', 'founder', 'contact'];
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (navList.classList.contains('mobile-open')) {
+        navList.classList.remove('mobile-open');
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  /* scroll spy */
+  const sectionIds = ['home', 'services', 'projects', 'philosophy', 'founder', 'faq', 'contact'];
+  const sections = sectionIds
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+
+  function updateActive() {
+    const scrollPos = window.scrollY + 160;
     let current = 'home';
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 150) current = id;
-      }
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= scrollPos) current = sec.id;
     });
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.dataset.section === current);
+    navLinks.forEach(function (a) {
+      const href = a.getAttribute('href') || '';
+      a.classList.toggle('active', href === '#' + current);
     });
   }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('load', updateActive);
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const target = this.getAttribute('href');
-      if (target && target.startsWith('#')) {
-        e.preventDefault();
-        const el = document.querySelector(target);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+  /* smooth scroll with offset for sticky nav */
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  /* ---------- FAQ ACCORDION ---------- */
+  document.querySelectorAll('.faq').forEach(function (item) {
+    const q = item.querySelector('.faq-q');
+    q.addEventListener('click', function () {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq').forEach(function (other) {
+        other.classList.remove('open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
       }
     });
   });
 
-  window.addEventListener('scroll', updateActiveLink);
-  window.addEventListener('load', () => setTimeout(updateActiveLink, 100));
+  /* ---------- TOAST ---------- */
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  let toastTimer;
 
-  // ---- FORM ----
-  const form = document.getElementById('contactForm');
-  const notification = document.getElementById('notification');
-  const notifTitle = document.getElementById('notifTitle');
-  const notifMessage = document.getElementById('notifMessage');
-
-  function showNotification(title, message, type = 'success') {
-    notification.className = 'notification show ' + type;
-    notifTitle.textContent = title;
-    notifMessage.textContent = message;
-    setTimeout(() => notification.classList.remove('show'), 6000);
+  function showToast(message, type) {
+    toastMsg.textContent = message;
+    toast.classList.remove('error');
+    if (type === 'error') toast.classList.add('error');
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 5000);
   }
+
+  /* ---------- CONTACT FORM ---------- */
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
 
   function getFormData() {
     return {
-      fullName: document.getElementById('fullName').value,
-      companyName: document.getElementById('companyName').value,
-      email: document.getElementById('emailAddress').value,
-      phone: document.getElementById('phoneNumber').value,
-      subject: document.getElementById('subject').value,
+      fullName:    document.getElementById('fullName').value.trim(),
+      companyName: document.getElementById('companyName').value.trim(),
+      email:       document.getElementById('emailAddress').value.trim(),
+      phone:       document.getElementById('phoneNumber').value.trim(),
       projectType: document.getElementById('projectType').value,
-      budget: document.getElementById('budget').value,
-      message: document.getElementById('message').value
+      budget:      document.getElementById('budget').value.trim(),
+      message:     document.getElementById('message').value.trim()
     };
   }
 
   function buildMailto(data) {
-    const subject = `Shyakon Contact: ${data.subject || 'New Project Inquiry'}`;
-    const body = `
-Name: ${data.fullName}
-Company: ${data.companyName || 'N/A'}
-Email: ${data.email}
-Phone: ${data.phone || 'N/A'}
-Project Type: ${data.projectType || 'N/A'}
-Budget: ${data.budget || 'N/A'}
-
-Message:
-${data.message}
-    `.trim();
-    return `mailto:shyakaheritier01@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const subject = 'Shyakon inquiry — ' + (data.projectType || 'New project');
+    const body =
+      'Name: ' + data.fullName + '\n' +
+      'Company: ' + (data.companyName || 'N/A') + '\n' +
+      'Email: ' + data.email + '\n' +
+      'Phone: ' + (data.phone || 'N/A') + '\n' +
+      'Project type: ' + (data.projectType || 'N/A') + '\n' +
+      'Budget: ' + (data.budget || 'N/A') + '\n\n' +
+      'Message:\n' + data.message;
+    return 'mailto:shyakaheritier01@gmail.com?subject=' +
+      encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
 
   function sendWithEmailJS(data) {
-    if (typeof EMAILJS_PUBLIC_KEY === 'undefined' || !EMAILJS_PUBLIC_KEY) return false;
+    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+      return Promise.resolve(false);
+    }
     try {
       emailjs.init(EMAILJS_PUBLIC_KEY);
       return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: data.fullName,
-        from_email: data.email,
-        company: data.companyName || 'N/A',
-        phone: data.phone || 'N/A',
-        subject: data.subject || 'New Inquiry',
+        from_name:   data.fullName,
+        from_email:  data.email,
+        company:     data.companyName || 'N/A',
+        phone:       data.phone || 'N/A',
         project_type: data.projectType || 'N/A',
-        budget: data.budget || 'N/A',
-        message: data.message,
-        to_email: 'shyakaheritier01@gmail.com'
-      }).then(() => true).catch(() => false);
-    } catch (e) { return false; }
+        budget:      data.budget || 'N/A',
+        message:     data.message,
+        to_email:    'shyakaheritier01@gmail.com'
+      }).then(function () { return true; })
+        .catch(function () { return false; });
+    } catch (e) {
+      return Promise.resolve(false);
+    }
   }
 
-  form.addEventListener('submit', async function(e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
     const data = getFormData();
+
     if (!data.fullName || !data.email || !data.message) {
-      showNotification('⚠️ Missing information', 'Please fill in all required fields.', 'error');
+      showToast('Please fill in name, email and message.', 'error');
       return;
     }
-    let sent = false;
-    try { sent = await sendWithEmailJS(data); } catch (e) { sent = false; }
-    if (sent) {
-      showNotification('✓ Message sent successfully', 'Thank you for contacting Shyakon. Our team will respond within 24 hours.', 'success');
-      form.reset();
-    } else {
-      try {
-        window.open(buildMailto(data), '_blank');
-        showNotification('✓ Email client opened', 'Please send the email to complete your inquiry.', 'success');
-        form.reset();
-      } catch (e) {
-        showNotification('⚠️ Unable to send', 'Please try again or contact us via WhatsApp.', 'error');
-      }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
     }
-  });
 
-  // ---- FAQ ----
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.querySelector('.faq-question').addEventListener('click', () => item.classList.toggle('active'));
-  });
+    submitBtn.disabled = true;
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Sending…';
 
-  // ---- COUNTERS ----
-  const counters = document.querySelectorAll('.stat-number');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const text = el.textContent;
-        const num = parseFloat(text);
-        if (!isNaN(num)) {
-          let current = 0;
-          const step = Math.ceil(num / 40);
-          const interval = setInterval(() => {
-            current += step;
-            if (current >= num) { el.textContent = text; clearInterval(interval); }
-            else el.textContent = current + (text.includes('+') ? '+' : (text.includes('%') ? '%' : ''));
-          }, 25);
+    sendWithEmailJS(data).then(function (sent) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+
+      if (sent) {
+        showToast('Message sent — we\'ll reply within 24 hours.');
+        form.reset();
+      } else {
+        try {
+          window.location.href = buildMailto(data);
+          showToast('Opening your email client to complete the message…');
+        } catch (err) {
+          showToast('Something went wrong. Please contact us via WhatsApp.', 'error');
         }
       }
     });
-  }, { threshold: 0.3 });
-  counters.forEach(c => observer.observe(c));
+  });
+
+  /* ---------- REDUCED MOTION: skip any heavy animation ---------- */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    /* subtle fade-in for project sections */
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          obs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.project, .service-card, .stack-card, .step').forEach(function (el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+      obs.observe(el);
+    });
+  }
+
+})();
 </script>
 </body>
 </html>
